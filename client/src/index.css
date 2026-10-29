@@ -1,0 +1,22 @@
+@import "tailwindcss";
+@theme {
+  --font-sans: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  --color-navy: #0b1730;
+  --color-navy-2: #14274a;
+}
+body { @apply bg-slate-50 text-slate-800 antialiased; }
+/* Dark theme: remap light surfaces and text; the navy sidebar/hero stay as they are. */
+.dark body { background: #070f20; color: #cbd5e1; }
+.dark .bg-white { background-color: #0f1d38; }
+.dark .bg-slate-50 { background-color: #12213f; }
+.dark .border-slate-200, .dark .border-slate-100, .dark .divide-slate-100 > :not(:last-child) { border-color: #223559; }
+.dark .text-slate-900, .dark .text-slate-800 { color: #f1f5f9; }
+.dark .text-slate-700, .dark .text-slate-600 { color: #cbd5e1; }
+.dark .text-slate-500 { color: #94a3b8; }
+.dark .bg-slate-200 { background-color: #223559; }
+.dark .bg-teal-50 { background-color: rgba(20,184,166,.15); }
+.dark .bg-rose-50 { background-color: rgba(244,63,94,.15); }
+.dark .bg-sky-50 { background-color: rgba(14,165,233,.15); }
+.dark .text-teal-800 { color: #5eead4; }
+.dark .hover\:bg-slate-50:hover { background-color: #12213f; }
+.dark input, .dark select { color-scheme: dark; }

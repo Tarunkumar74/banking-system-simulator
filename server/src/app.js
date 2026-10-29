@@ -1,0 +1,27 @@
+import express from 'express';
+import helmet from 'helmet';
+import cors from 'cors';
+import rateLimit from 'express-rate-limit';
+import auth from './routes/auth.js';
+import accounts from './routes/accounts.js';
+import transactions from './routes/transactions.js';
+import analytics from './routes/analytics.js';
+import users from './routes/users.js';
+import { notFound, errorHandler } from './middleware/error.js';
+
+const app = express();
+const limiter = rateLimit({ windowMs: 15 * 60 * 1000, limit: process.env.NODE_ENV === 'test' ? 10000 : 20, message: { message: 'Too many attempts. Try again later.' } });
+app.use(helmet());
+app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:5173' }));
+app.use(express.json({ limit: '10kb' }));
+app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
+app.use('/api/auth/login', limiter);
+app.use('/api/auth/register', limiter);
+app.use('/api/auth', auth);
+app.use('/api/accounts', accounts);
+app.use('/api/transactions', transactions);
+app.use('/api/analytics', analytics);
+app.use('/api/users', users);
+app.use(notFound);
+app.use(errorHandler);
+export default app;
